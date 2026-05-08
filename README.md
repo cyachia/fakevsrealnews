@@ -50,9 +50,7 @@ Die Hauptarbeit liegt in der Auswahl und Vorbereitung von Textdaten, dem Trainin
 - pytest
 
 ## Testhinweise
-
-- Unit-Test für Textbereinigung und Vorhersage-Logik: `pytest -q`
-- Zusätzlich sollten folgende manuelle Tests gemacht werden:
+-Es wurden manuelle Tests mit verschiedenen echten und künstlichen Nachrichten durchgeführt:
   - Eingabe eines normalen Nachrichtentexts überprüfen
   - Eingabe eines kurzen Texts prüfen (Warnung anzeigen)
   - Leeres Eingabefeld prüfen
