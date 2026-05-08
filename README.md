@@ -1,17 +1,17 @@
-# Fake vs Real News Detector
+# Fake vs Real: News Detector
 
 ## Projektübersicht
 
-**Projekttitel:** Fake vs Real News Detector
+Projekttitel: Fake vs Real News Detector
 
-**Auftraggeber / Problem:**
-Dieses Projekt soll einer realen Person helfen, einen Nachrichtentext schnell als potenziell "Fake" oder "Real" einzuschätzen. Das Problem ist, dass im täglichen Umfeld viele Texte, Headlines und Social-Media-Meldungen nicht einfach auf ihren Wahrheitsgehalt überprüft werden können.
+Auftraggeber und Problem:
+Dieses Projekt soll Mahreens Vater dabei behilflich sein, einen Nachrichtentext schnell als potenziell "Fake" oder "Real" einzuschätzen. Das Problem ist, dass im täglichen Umfeld viele Texte, Headlines und Social-Media-Meldungen nicht so einfach auf ihren Wahrheitsgehalt überprüft werden können.
 
-**Kurzbeschreibung der Lösung:**
-Die Anwendung verwendet ein mit Nachrichten trainiertes Machine-Learning-Modell, um eingegebene Texte automatisiert zu klassifizieren. Der User gibt einen Text ein, die App bereinigt ihn, wandelt ihn in TF-IDF-Merkmale um und trifft dann mit logistischem Regression eine Vorhersage.
+Kurze Beschreibung der Lösung und Vorgehensweise:
+Die Anwendung verwendet ein mit Nachrichten trainiertes Machine-Learning-Modell, um eingegebene Texte automatisiert zu klassifizieren. Der User gibt einen Text ein, die App bereinigt ihn, wandelt ihn in TF-IDF-Merkmale um und trifft dann mit logistischer Regression eine Vorhersage.
 
-**Öffentlicher Link:**
-Noch nicht veröffentlicht. Bitte hier den Live-Link einfügen, sobald die Streamlit-App online ist.
+Öffentlicher Link:
+[Noch nicht veröffentlicht. Bitte hier den Live-Link einfügen, sobald die Streamlit-App online ist.]
 
 ## Benutzung
 
@@ -60,16 +60,22 @@ Die Hauptarbeit liegt in der Auswahl und Vorbereitung von Textdaten, dem Trainin
 
 ## Grenzen und bekannte Probleme
 
-- Das Modell kann nur die statistische Wahrscheinlichkeit einschätzen, es prüft keine Fakten.
-- Sehr kurze oder unklare Texte können zu unsicheren Ergebnissen führen.
+- Das Modell kann nur die statistische Wahrscheinlichkeiten einschätzen, es kann nicht, zum Beispiel, die im Text verwendeten Wörter deuten.
+- Sehr kurze oder unklare Texte führen eher zu unzuverlässigen Ergebnissen. 
 - Der Trainingsdatensatz kann Verzerrungen enthalten und ist nicht für alle Themenbereiche repräsentativ.
-- Bei stark verändertem Schreibstil oder neuen Ereignissen kann die Klassifikation schlechter werden.
+- Bei stark verändertem Schreibstil oder neuen Ereignissen (Aktuelles Weltgeschehen) kann die Klassifikation schlechter werden.
 
 ## Quellen
 
-- Fake News Dataset: `fake_or_real_news.csv.zip`, `Fake.csv.zip`, `True.csv.zip`
+- Fake News Dataset: `fake_or_real_news.csv.zip`, `Fake.csv.zip`, `True.csv.zip` (Quelle: [Kaggle.](https://www.kaggle.com/datasets/clmentbisaillon/fake-and-real-news-dataset/discussion?sort=hotness))
 - scikit-learn Dokumentation
 
 ## KI / Agenten
 
-Dieses Repository wurde mit Unterstützung eines Programmier-Agenten in VS Code bearbeitet. Eigene Beiträge sind erkennbar, und Änderungen wurden geprüft.
+Dieses Repository wurde mit Unterstützung eines Programmieragenten (Github Copilot) in VS Code bearbeitet. Die Vorgehensweise wurde mithilfe von Chatgpt optimiert. Auch wurde Deepseek für Erklärungen und Änderungen verwendet. 
+## Arbeitsaufteilung (Gruppenarbeit)
+Dieses Projekt wurde zu zweit bearbeitet. Die Arbeit wurde (grob) so aufgeteilt. 
+
+- Mahreen: Datenverarbeitung, Streamlit-Webapp-Entwicklung Modelltrainingwahl und -training
+- Shourya: Modellwahl und -training, Dokumentation, kleinere Änderungen, 
+
