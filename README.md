@@ -11,7 +11,7 @@ Kurze Beschreibung der Lösung und Vorgehensweise:
 Die Anwendung verwendet ein mit Nachrichten trainiertes Machine-Learning-Modell, um eingegebene Texte automatisiert zu klassifizieren. Der User gibt einen Text ein, die App bereinigt ihn, wandelt ihn in TF-IDF-Merkmale um und trifft dann mit logistischer Regression eine Vorhersage.
 
 Öffentlicher Link:
-[Noch nicht veröffentlicht. Bitte hier den Live-Link einfügen, sobald die Streamlit-App online ist.]
+(https://fakevsrealnews-7xlc9tevgujkwmptwt4va3.streamlit.app/)
 
 ## Benutzung
 
