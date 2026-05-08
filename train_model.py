@@ -46,7 +46,8 @@ def load_csv(name: str) -> pd.DataFrame:
 def clean_text(text: str) -> str:
     text = str(text).lower()
     text = re.sub(r"http\S+|www\S+", "", text)
-    text = re.sub(r"[^a-zA-Z\s]", "", text)
+    text = re.sub(r"[^\w\s]", "", text, flags=re.UNICODE)
+    text = re.sub(r"[_\d]+", "", text)
     text = re.sub(r"\s+", " ", text).strip()
     return text
 
@@ -131,9 +132,10 @@ def train_model() -> None:
     df_test[["title", "text", "label"]].to_csv(test_path, index=False)
     print(f"Holdout-Testdatensatz gespeichert in '{test_path}'.")
 
-    # Finales Modell auf dem kompletten Datensatz trainieren
-    X_full = vectorizer.fit_transform(df["clean_content"])
-    model.fit(X_full, df["label"])
+    # Finales Modell auf dem kompletten Datensatz trainieren und für die App speichern
+    X_full_vec = vectorizer.fit_transform(df["clean_content"])
+    model = LogisticRegression(max_iter=1000, random_state=42)
+    model.fit(X_full_vec, df["label"])
 
     joblib.dump(model, MODEL_DIR / "fake_news_model.joblib")
     joblib.dump(vectorizer, MODEL_DIR / "fake_news_model_vectorizer.joblib")

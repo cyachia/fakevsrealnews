@@ -19,6 +19,9 @@ MODEL_CONFIG = {
 
 @st.cache_resource
 def load_artifacts(model_key: str):
+    if model_key not in MODEL_CONFIG:
+        raise KeyError(f"Modellkonfiguration für '{model_key}' nicht gefunden.")
+
     config = MODEL_CONFIG[model_key]
     model_path = MODEL_DIR / config["model"]
     vectorizer_path = MODEL_DIR / config["vectorizer"]
@@ -36,20 +39,26 @@ def load_artifacts(model_key: str):
 def clean_text(text: str) -> str:
     text = str(text).lower()
     text = re.sub(r"http\S+|www\S+", "", text)
-    text = re.sub(r"[^a-zA-Z\s]", "", text)
+    text = re.sub(r"[^\w\s]", "", text, flags=re.UNICODE)
+    text = re.sub(r"[_\d]+", "", text)
     text = re.sub(r"\s+", " ", text).strip()
     return text
 
 
 def predict_news(text: str, model, vectorizer) -> tuple[str, float]:
     cleaned = clean_text(text)
+
+    # short text guard
+    if len(cleaned.split()) < 10:
+        return "Unsure", 0.0
+
     vec = vectorizer.transform([cleaned])
     pred = model.predict(vec)[0]
     prob = model.predict_proba(vec)[0]
 
     label = "Real" if pred == 1 else "Fake"
-
     confidence = float(max(prob) * 100)
+
     return label, confidence
 
 
@@ -63,7 +72,7 @@ def main() -> None:
     )
 
     st.info(
-        "Dieses Modell wurde mit gelabelten Fake- und Real-News trainiert und verwendet Logistic Regression für die Klassifikation."
+        "Dieses Modell wurde mit gelabelten Fake- und Real-News trainiert und verwendet eine logistische Regression zur Klassifikation."
     )
 
     user_input = st.text_area(
@@ -74,21 +83,21 @@ def main() -> None:
 
     if st.button("Vorhersage starten"):
         if not user_input.strip():
-            st.warning("Bitte zuerst einen Text eingeben.")
+            st.warning("Bitte geben Sie zuerst einen Text ein.")
             return
-
         label, confidence = predict_news(user_input, model, vectorizer)
+        if label == "Unsure":
+            st.warning("Bitte geben Sie einen längeren Text ein (mindestens 10 Wörter).")
+            return
         if label == "Fake":
-            st.error(f"Ergebnis: {label} ({confidence:.1f} %)")
+            st.error(f"Ergebnis: {label} ({confidence:.1f} %) ")
         else:
-            st.success(f"Ergebnis: {label} ({confidence:.1f} %)")
+            st.success(f"Ergebnis: {label} ({confidence:.1f} %) ")
 
-        st.markdown(
-            "---\n"
-            "**Hinweis:** Die Vorhersage ist ein statistisches Ergebnis. Bei Echt-Daten kann es Fehler geben."
-        )
-
-    st.markdown("---")
+    st.markdown(
+        "---\n"
+        "**Hinweis:** Die Vorhersage ist ein statistisches Ergebnis. Bei Echt-Daten kann es Fehler geben."
+    )
     st.write("**So funktioniert die App:**")
     st.write(
         "1. Der Text wird bereinigt: Sonderzeichen und Links werden entfernt."
